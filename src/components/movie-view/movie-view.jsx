@@ -1,3 +1,4 @@
+// Component to populate movie card
 export const MovieView = ({ movie, onReturnClick }) => {
     return (
         <div>

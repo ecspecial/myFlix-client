@@ -1,3 +1,4 @@
+// Component to open movie card 
 export const MovieCard = ({ movie, onMovieClick }) => {
     return (
         <div
