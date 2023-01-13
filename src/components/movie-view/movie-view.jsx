@@ -9,12 +9,12 @@ export const MovieView = ({ movie, onReturnClick }) => {
                 <span>{movie.Title}</span>
             </div>
             <div>
-                <span>Description: </span>
-                <span>{movie.Description}</span>
-            </div>
-            <div>
                 <span>Genre: </span>
                 <span>{movie.Genre.Name}</span>
+            </div>
+            <div>
+                <span>Description: </span>
+                <span>{movie.Description}</span>
             </div>
             <div>
                 <span>Director: </span>

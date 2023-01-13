@@ -1,32 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
 export const MainView = () => {
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-    const [ selectedMovie, setSelectedMovie] = useState(null);
+  useEffect(() => {
+    fetch("https://myflixdb-ecspecial-api.herokuapp.com/movies").
+    then((response) => response.json())
+    .then((data) => {
+      const booksFromApi = data.map((movie) => {
+        return {
+          Genre: {
+            Name: movie.Genre.Name,
+            Description: movie.Genre.Description
+          },
+          Director: {
+            Name: movie.Director.Name,
+            Bio: movie.Director.Bio,
+            Birth: movie.Director.Birth,
+            Death: movie.Director.Death
+          },
+          id: movie._id,
+          Title: movie.Title,
+          Description: movie.Description,
+          ImagePath: movie.ImagePath,
+          Featured: movie.Featured,
+        };
+      });
 
-    if (selectedMovie) {
-        return <MovieView movie={selectedMovie} onReturnClick={() => setSelectedMovie(null)} />;
-    }
+      setMovies(booksFromApi);
+    })
+    .catch(error => console.log(error));
+  }, []);
 
-    if (movies.length === 0) {
-        return <div>The list is empty.</div>;
-    } else {
-        return (
-            <div>
-                {movies.map((movie) => (
-                    <MovieCard 
-                    key={movie.id}
-                    movie={movie}
-                    onMovieClick={(newSelectedMovie) => {
-                        setSelectedMovie(newSelectedMovie);
-                    }}
-                    />
-                ))}
-            </div>
-        );
-    }
+  const [ selectedMovie, setSelectedMovie] = useState(null);
 
+  if (selectedMovie) {
+      return <MovieView movie={selectedMovie} onReturnClick={() => setSelectedMovie(null)} />;
+  }
+
+  if (movies.length === 0) {
+    return <div>The list is empty.</div>;
+  }
+  return (
+    <div>
+        {movies.map((movie) => (
+            <MovieCard 
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+            />
+        ))}
+    </div>
+  );
 };
