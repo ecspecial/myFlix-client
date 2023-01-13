@@ -44,7 +44,24 @@ export const MainView = () => {
 
   // If movie is clicked on, show Moviecard
   if (selectedMovie) {
-      return <MovieView movie={selectedMovie} onReturnClick={() => setSelectedMovie(null)} />;
+      let similarMovies = movies.filter(movie => movie.Genre.Name === selectedMovie.Genre.Name && movie.Title !== selectedMovie.Title);
+      
+      return (
+        <>
+        <MovieView movie={selectedMovie} onReturnClick={() => setSelectedMovie(null)} />
+        <hr />
+        <h2>Similar movies</h2>
+        {similarMovies.map((movie) => (
+            <MovieCard 
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
+            />
+        ))}
+        </>
+      );
   }
 
   // Check whether movie array is populated
