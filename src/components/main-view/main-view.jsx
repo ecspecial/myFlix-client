@@ -29,7 +29,7 @@ export const MainView = () => {
           Title: movie.Title,
           Description: movie.Description,
           ImagePath: movie.ImagePath,
-          Featured: movie.Featured,
+          Featured: movie.Featured
         };
       });
 
