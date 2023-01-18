@@ -1,17 +1,31 @@
-import { useState, useEffect } from 'react';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import { useState, useEffect } from "react";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
 
 // Initialize React component
 export const MainView = () => {
 
   // Set array for movies
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   // Fetch movie data from API and return movie object
   useEffect(() => {
-    fetch("https://myflixdb-ecspecial-api.herokuapp.com/movies").
-    then((response) => response.json())
+
+    if (!token) {
+        return;
+      }
+
+    fetch("https://myflixdb-ecspecial-api.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((response) => response.json())
     .then((data) => {
       const booksFromApi = data.map((movie) => {
         return {
@@ -37,10 +51,21 @@ export const MainView = () => {
       setMovies(booksFromApi);
     })
     .catch(error => console.log(error));
-  }, []);
+  }, [token]);
 
-  // Set variable for selectead movie state
-  const [ selectedMovie, setSelectedMovie] = useState(null);
+  if (!user) {
+    return (
+        <>
+        <LoginView 
+        onLoggedIN={(user, token) => {
+            setUser(user);
+            setToken(token);
+        }} /> 
+        or
+        <SignupView />
+        </>
+    );
+  }
 
   // If movie is clicked on, show Moviecard
   if (selectedMovie) {
@@ -71,15 +96,18 @@ export const MainView = () => {
   // Iterate through movie array and display all movies
   return (
     <div>
-        {movies.map((movie) => (
-            <MovieCard 
-            key={movie.id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-            />
-        ))}
+        <div>
+            {movies.map((movie) => (
+                <MovieCard 
+                key={movie.id}
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+                }}
+                />
+            ))}
+        </div>
+        <button onClick={() => { setUser(null); }}>Logout</button>
     </div>
   );
 };
