@@ -1,15 +1,15 @@
 import PropTypes, { func, string } from "prop-types";
+import { Card, Col } from "react-bootstrap";
 
 // Component to open movie card 
 export const MovieCard = ({ movie, onMovieClick }) => {
     return (
-        <div
-            onClick={() => {
-                onMovieClick(movie);
-            }}
-        >
-            {movie.Title}
-        </div>
+        <Card className="h-100" onClick={() => onMovieClick(movie)}>
+            <Card.Img variant="top" src={movie.ImagePath} className="img-fluid h-100 w-auto movie-card-img"/>
+            <Card.Body>
+                <Card.Title>{movie.Title}</Card.Title>
+            </Card.Body>
+        </Card>
     );
 };
 
