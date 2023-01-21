@@ -1,16 +1,24 @@
+import { useParams } from "react-router";
 import { Card, Col, Row, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 // Component to populate movie card
-export const MovieView = ({ movie, onReturnClick }) => {
+export const MovieView = ({ movies }) => {
+    const { movieId } = useParams();
+
+    const movie = movies.find((m) => m.id === movieId);
+    
     return (
 
         <Row className="d-flex flex-row-reverse p-3">
             <Col md={5} className='text-center text-md-end'>
-                <img 
-                src={movie.ImagePath} 
-                alt={`Poster for ${movie.Title}`} 
-                className="img-fluid h-100 w-auto movie-view-img"
-                />
+                <Row>
+                    <img 
+                    src={movie.ImagePath} 
+                    alt={`Poster for ${movie.Title}`} 
+                    className="img-fluid h-100 w-auto movie-view-img p-3"
+                    />
+                </Row>
             </Col>
             <Col md={7} className='d-flex flex-column'>
                 <Row className='d-flex flex-row  justify-content-between'>
@@ -35,15 +43,9 @@ export const MovieView = ({ movie, onReturnClick }) => {
                     <span>{movie.Description}</span>
                 </div>
                 <div className='mt-auto text-end mb-md-4'>
-                    <Button
-                        onClick={() => {
-                        onReturnClick();
-                        }}
-                        variant='secondary'
-                        size='lg'
-                    >
-                        Return
-                    </Button>
+                    <Link to={`/`}>
+                        <Button className="back-button">Back</Button>
+                    </Link>
                 </div>
             </Col>
         </Row>
