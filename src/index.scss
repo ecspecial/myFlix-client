@@ -15,3 +15,19 @@ $color: steelblue;
   max-height: 450px;
   width: 100%;
 }
+
+.edit-button {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.button-group-profile button {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.button-group-profile {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}

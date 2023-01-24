@@ -12014,4 +12014,15 @@ textarea.form-control-lg {
   width: 100%;
 }
 
+.edit-button, .button-group-profile button {
+  padding: .2rem .5rem;
+  font-size: .8rem;
+}
+
+.button-group-profile {
+  justify-content: space-between;
+  gap: 5px;
+  display: flex;
+}
+
 /*# sourceMappingURL=index.a9c166d0.css.map */
