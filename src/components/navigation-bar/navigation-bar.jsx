@@ -1,7 +1,11 @@
-import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { MovieCard } from "../movie-card/movie-card";
+import { SearchView } from "../search-view/search-view";
+import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
+import { Link, Route } from "react-router-dom";
 
-export const NavigationBar = ({ user, onLoggedOut }) => {
+export const NavigationBar = ({ user, movies, onLoggedOut, onSearch }) => {
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -33,6 +37,10 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
               </>
             )}
           </Nav>
+          <SearchView 
+          movies={movies}
+          onSearch={onSearch}
+          />
         </Navbar.Collapse>
       </Container>
     </Navbar>

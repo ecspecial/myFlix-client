@@ -89,11 +89,11 @@ export const UpdateView = ({ user, updateUser }) => {
 
         fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
+            body: JSON.stringify(data),
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+            }
         })
         .then((response) => response.json())
         .then((data) => {

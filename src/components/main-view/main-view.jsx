@@ -7,6 +7,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { SearchView } from "../search-view/search-view";
 
 // Initialize React component
 export const MainView = () => {
@@ -19,6 +20,11 @@ export const MainView = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [movies, setMovies] = useState([]);
+  const [searchResult, setSearchResult] = useState("");
+
+  const filteredMovies = movies.filter((movie) => {
+    return movie.Title.toLowerCase().includes(searchResult.toLowerCase());
+  });
 
   useEffect(() => {
     if (storedUser && storedToken) {
@@ -39,7 +45,7 @@ export const MainView = () => {
     })
     .then((response) => response.json())
     .then((data) => {
-      const booksFromApi = data.map((movie) => {
+      const moviesFromApi = data.map((movie) => {
         return {
           Genre: {
             Name: movie.Genre.Name,
@@ -60,7 +66,7 @@ export const MainView = () => {
       });
 
       // Populate movie array with returned movies
-      setMovies(booksFromApi);
+      setMovies(moviesFromApi);
     })
     .catch(error => console.log(error));
   }, [token]);
@@ -70,10 +76,15 @@ export const MainView = () => {
         <BrowserRouter>
         <NavigationBar
             user={user}
+            movies={movies}
+            setSearchResult={setSearchResult}
             onLoggedOut={() => {
                 setUser(null);
                 setToken(null);
                 localStorage.clear();
+            }}
+            onSearch ={(foundMovie) => {
+                setSearchResult(foundMovie);
             }}
         />
         <Row className="mt-3 justify-content-md-center">
@@ -169,6 +180,32 @@ export const MainView = () => {
                                     ))}
                                 </Row>
                             )}
+                        </>
+                    }
+                />
+
+                <Route
+                
+                    path="/search"
+                    element={
+                        <>
+                        {!user ? (
+                                <Navigate to="/login" replace />
+                            ) : filteredMovies.length === 0 ? (
+                                    <div>Nothing found!</div>
+                            ) : (
+                                <Row>
+                                    {filteredMovies.map((movie) => (
+                                        <Col key={movie.id} xs={8} sm={6} md={4} lg={3} className="mb-3">    
+                                            <MovieCard 
+                                                movie={movie}
+                                            />
+                                        </Col>
+                                    ))}
+                                </Row>
+                            )}{ useEffect(() => {
+                                setSearchResult("");
+                            }, [])}
                         </>
                     }
                 />
