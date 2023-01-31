@@ -2,14 +2,18 @@ import { useState } from "react";
 import { ProfileView } from "./profile-view"
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
 
-export const UpdateView = ({ user, updateUser }) => {
-
+export const UpdateView = ({ setShowForm }) => {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user.user);
+    const token = useSelector(state => state.user.token);
+    const movies = useSelector(state => state.movies.movies);
     const [username, setUsername] = useState(user.Username);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState(user.Email);
     const [birthday, setBirthday] = useState(user.Birthday);
-    const token = localStorage.getItem("token");
     const [errors, setErrors] = useState([]); // new state to hold validation errors
 
     const validateForm = () => {
@@ -59,6 +63,7 @@ export const UpdateView = ({ user, updateUser }) => {
             if (response.ok) {
                 alert("Account successfully deleted");
                 localStorage.clear();
+                dispatch(setUser(null, null));
                 window.open('/', '_self');
             } else {
                 alert("Failed to delete");
@@ -97,16 +102,11 @@ export const UpdateView = ({ user, updateUser }) => {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log("Update response: ", data);
+            // console.log("Update response: ", data);
             if(data) {
-                console.log(localStorage.getItem("user"));
-                alert("Data updated");
                 localStorage.setItem("user", JSON.stringify(data));
-                updateUser(data);
-                //localStorage.setItem("user", JSON.stringify(data));
-                //localStorage.setItem("token", data.token);
-                console.log(localStorage.getItem("user"));
-                //window.location.reload();
+                dispatch(setUser(data, token));
+                alert("Data updated");
             } else if(response.status === 422) {
                 return response.json().then(err => {
                     setErrors(err.errors);
@@ -121,6 +121,8 @@ export const UpdateView = ({ user, updateUser }) => {
         .catch((e) => {
             alert("Authentication proccess failed")
         });
+
+        setShowForm(false);
     };
     
     return (

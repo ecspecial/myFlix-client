@@ -5,14 +5,22 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 import { ProfileView } from "../profile-view/profile-view"
+import { addFavorite, deleteFavorite } from "../../redux/actions/userActions";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
 
 // Component to populate movie card
-export const MovieView = ({ user, setUser, movies }) => {
+export const MovieView = () => {
+
+    const user = useSelector(state => state.user.user);
+    const movies = useSelector(state => state.movies.movies);
     const { movieId } = useParams();
     const token = localStorage.getItem("token");
     const [errors, setErrors] = useState([]);
     const movie = movies.find((m) => m.id === movieId);
     const similarMovies = movies.filter((m => m.Genre.Name === movie.Genre.Name && m.Title !== movie.Title));
+    const dispatch = useDispatch();
+
     let favoriteMovies = movies.filter((m) => user.FavoriteMovies.includes(m.id));
 
     const handleAddFavorite = () => {
@@ -26,8 +34,10 @@ export const MovieView = ({ user, setUser, movies }) => {
         .then((data) => {
             if(data) {
                 alert("Movie added to favorites");
-                localStorage.setItem("user", JSON.stringify(data));
-                setUser(data);
+                localStorage.setItem("user", JSON.stringify(data));           
+                //console.log('Before dispatch:', addFavorite(movie.id));
+                dispatch(addFavorite(movie.id));
+                //console.log('After dispatch:', addFavorite(movie.id));
             } else {
                 alert("Failed to update user");
                 setErrors(err.errors);
@@ -51,7 +61,7 @@ export const MovieView = ({ user, setUser, movies }) => {
             if(data) {
                 alert("Movie removed from favorites");
                 localStorage.setItem("user", JSON.stringify(data));
-                setUser(data);
+                dispatch(deleteFavorite(movie.id));
             } else {
                 alert("Failed to update user");
                 setErrors(err.errors);
@@ -99,11 +109,11 @@ export const MovieView = ({ user, setUser, movies }) => {
                 </div>
                 <div className="d-flex justify-content-between mt-auto mb-md-4">
                     <div>
-                        {favoriteMovies.length > 0 ? 
-                            (user.FavoriteMovies.includes(movie.id) ? 
+                        {
+                            user.FavoriteMovies.includes(movie.id) ? 
                                 <Button variant="danger" onClick={handleRemoveFavorite}>Remove from Favorites</Button> 
-                                : <Button className="button-add-favorite" onClick={handleAddFavorite}>Add to Favorites</Button>) 
-                            : null}
+                                : <Button className="button-add-favorite" onClick={handleAddFavorite}>Add to Favorites</Button>
+                            }
                     </div>
                     <div className="ml-auto align-self-end">
                         <Link to={`/`}>

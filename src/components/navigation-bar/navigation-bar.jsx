@@ -3,8 +3,19 @@ import { MovieCard } from "../movie-card/movie-card";
 import { SearchView } from "../search-view/search-view";
 import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link, Route } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
 
-export const NavigationBar = ({ user, movies, onLoggedOut, onSearch }) => {
+export const NavigationBar = () => {
+
+  const user = useSelector(state => state.user.user);
+  const dispatch = useDispatch();
+
+  const onLoggedOut = () => {
+    localStorage.clear();
+    dispatch(setUser(null, null))
+    window.open('/', '_self');
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -38,8 +49,6 @@ export const NavigationBar = ({ user, movies, onLoggedOut, onSearch }) => {
             )}
           </Nav>
           <SearchView 
-          movies={movies}
-          onSearch={onSearch}
           />
         </Navbar.Collapse>
       </Container>

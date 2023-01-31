@@ -2,20 +2,19 @@ import { useState } from "react";
 import { MainView } from "../main-view/main-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { SignupView } from "../signup-view/signup-view";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
 import { Col, Container, Row, Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UpdateView } from "./update-view";
 
 
-export const ProfileView = ({ user, movies, setUser }) => {
+export const ProfileView = () => {
 
+    const user = useSelector(state => state.user.user);
+    const movies = useSelector(state => state.movies.movies);
     const [showForm, setShowForm] = useState(false);
-    const [showDeleteForm, setShowDeleteForm] = useState(false);
     const favoriteMovies = movies.filter((m) => user.FavoriteMovies.includes(m.id));
-
-    const updateUser = (updatedUser) => {
-        setUser(updatedUser);
-      }
 
     return (
 
@@ -35,8 +34,8 @@ export const ProfileView = ({ user, movies, setUser }) => {
                     <Card.Text>
                         Birthday: {new Date(user.Birthday).toISOString().substring(0, 10)}
                     </Card.Text>
-                    <Button className="mb-2 edit-button" onClick={() => setShowForm(!showForm)}>Edit</Button>
-                    {showForm && <UpdateView user={user} setUser={setUser} updateUser={updateUser}/>}
+                    <Button className="mb-2 edit-button" onClick={() => setShowForm(true)}>Edit</Button>
+                    {showForm && <UpdateView setShowForm={setShowForm}/>}
                 </Card.Body>
             </Card>
 

@@ -8,6 +8,9 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SearchView } from "../search-view/search-view";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
+import { setFilter, setMovies } from "../../redux/actions/movieActions";
 
 // Initialize React component
 export const MainView = () => {
@@ -17,26 +20,28 @@ export const MainView = () => {
   const storedToken = localStorage.getItem("token");  
 
   // Set array for movies
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [movies, setMovies] = useState([]);
-  const [searchResult, setSearchResult] = useState("");
+  const user = useSelector(state => state.user.user);
+  const movies = useSelector(state => state.movies.movies);
+  const token = useSelector(state => state.user.token);
+  const filter = useSelector(state => state.movies.filter);
+  const dispatch = useDispatch();
+  const searchFilter = useSelector(state => state.movies.filter);
 
   const filteredMovies = movies.filter((movie) => {
-    return movie.Title.toLowerCase().includes(searchResult.toLowerCase());
+    return movie.Title.toLowerCase().includes(searchFilter.toLowerCase());
   });
+
 
   useEffect(() => {
     if (storedUser && storedToken) {
-      setUser(storedUser);
-      setToken(storedToken);
+        dispatch(setUser(storedUser, storedToken));
     }
   }, []);
 
   // Fetch movie data from API and return movie object
   useEffect(() => {
 
-    if (!token) {
+    if (!user) {
         return;
       }
 
@@ -66,7 +71,7 @@ export const MainView = () => {
       });
 
       // Populate movie array with returned movies
-      setMovies(moviesFromApi);
+      dispatch(setMovies(moviesFromApi));
     })
     .catch(error => console.log(error));
   }, [token]);
@@ -75,16 +80,9 @@ export const MainView = () => {
   return (
         <BrowserRouter>
         <NavigationBar
-            user={user}
-            movies={movies}
-            setSearchResult={setSearchResult}
-            onLoggedOut={() => {
-                setUser(null);
-                setToken(null);
-                localStorage.clear();
-            }}
-            onSearch ={(foundMovie) => {
-                setSearchResult(foundMovie);
+            //setSearchResult={setSearchResult}
+            onSearch ={(filter) => {
+                dispatch(setFilter(filter));
             }}
         />
         <Row className="mt-3 justify-content-md-center">
@@ -93,7 +91,7 @@ export const MainView = () => {
                     path="/signup"
                     element={
                         <>
-                            {user ? (
+                            {token ? (
                                 <Navigate to="/" />
                             ) : (
                                 <Col md={5}>
@@ -107,16 +105,11 @@ export const MainView = () => {
                     path="/login"
                     element={
                         <>
-                            {user ? (
+                            {token ? (
                                 <Navigate to="/" />
                             ) : (
                                 <Col md={5}>
-                                    <LoginView 
-                                        onLoggedIN={(user, token) => {
-                                            setUser(user);
-                                            setToken(token);
-                                        }} 
-                                    /> 
+                                    <LoginView /> 
                                 </Col>
                             )}
                         </>
@@ -130,11 +123,7 @@ export const MainView = () => {
                                 <Navigate to="/login" replace />
                             ) : (
                                 <Col md={10 }>
-                                    <ProfileView 
-                                        user={user}
-                                        movies={movies}
-                                        setUser={setUser}
-                                    /> 
+                                    <ProfileView /> 
                                 </Col>
                             )}
                         </>
@@ -150,11 +139,7 @@ export const MainView = () => {
                                 <div>The list is empty!</div>
                             ) : (
                                 <Col md={8}>
-                                    <MovieView 
-                                    user={user}
-                                    movies={movies}
-                                    setUser={setUser}
-                                    />
+                                    <MovieView />
                                 </Col>
                             )}
                         </>
@@ -165,7 +150,7 @@ export const MainView = () => {
                     path="/"
                     element={
                         <>
-                            {!user ? (
+                            {!token ? (
                                 <Navigate to="/login" replace />
                             ) : movies.length === 0 ? (
                                     <div>The list is empty!</div>
@@ -204,7 +189,7 @@ export const MainView = () => {
                                     ))}
                                 </Row>
                             )}{ useEffect(() => {
-                                setSearchResult("");
+                                dispatch(setFilter(""));
                             }, [])}
                         </>
                     }

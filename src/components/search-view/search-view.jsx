@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import {useNavigate} from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux";
+import { setFilter } from '../../redux/actions/movieActions';
 
 export const SearchView = ({ movies, onSearch, setSearchResult }) => {
+
     const [inputValue, setInputValue] = useState("");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const searchFilter = useSelector(state => state.movies.filter);
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
@@ -13,7 +18,7 @@ export const SearchView = ({ movies, onSearch, setSearchResult }) => {
 
     const handleSearchSubmit = () => {
         if (inputValue) {
-            onSearch(inputValue);
+            dispatch(setFilter(inputValue));
             navigate(`/search`);
             setInputValue("");
         } else {
@@ -31,6 +36,11 @@ export const SearchView = ({ movies, onSearch, setSearchResult }) => {
                     className="search search-bar"
                     value={inputValue}
                     onChange={handleChange}
+                    onKeyDown={(e) => {
+                        if (e.keyCode === 13) {
+                            handleSearchSubmit();
+                        }
+                    }}
                 />
                 <button type="submit" onClick={() => {
                     handleSearchSubmit()

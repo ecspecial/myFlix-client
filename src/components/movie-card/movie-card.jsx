@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes, { func, string } from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
 import { Card, Col, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
