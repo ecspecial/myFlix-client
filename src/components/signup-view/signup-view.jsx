@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -30,7 +30,7 @@ export const SignupView = () => {
         .then((response) => {
             if (response.ok) {
                 alert("Signup successful");
-                window.location.reload();
+                window.open('/', '_self');
             } else {
                 alert("Signup failed");
             }
@@ -62,7 +62,7 @@ export const SignupView = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength="8"
-                    placeholder="At least 5 characters long"
+                    placeholder="At least 8 characters long"
                 />
             </Form.Group>
 
@@ -82,6 +82,7 @@ export const SignupView = () => {
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
+                    max={new Date().toISOString().substring(0, 10)}
                     required
                 />
             </Form.Group>

@@ -1,14 +1,25 @@
+import React from "react";
 import PropTypes, { func, string } from "prop-types";
-import { Card, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions";
+import { Card, Col, Button, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 // Component to open movie card 
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie }) => {
     return (
-        <Card className="h-100" onClick={() => onMovieClick(movie)}>
-            <Card.Img variant="top" src={movie.ImagePath} className="img-fluid h-100 w-auto movie-card-img"/>
+        <Card className="h-100">
+            <Row>
+                <Card.Img variant="top" src={movie.ImagePath} className="img-fluid h-100 w-auto movie-card-img"/>
+            </Row>
             <Card.Body>
                 <Card.Title>{movie.Title}</Card.Title>
             </Card.Body>
+            <Card.Footer>
+                <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+                    <Button>Open</Button>
+                </Link>
+            </Card.Footer>
         </Card>
     );
 };

@@ -12009,8 +12009,24 @@ textarea.form-control-lg {
   color: #4682b4;
 }
 
-.movie-view-img {
+.movie-view-img, .movie-card-img {
   max-height: 450px;
+  width: 100%;
+}
+
+.edit-button, .button-group-profile button {
+  padding: .2rem .5rem;
+  font-size: .8rem;
+}
+
+.button-group-profile {
+  justify-content: space-between;
+  gap: 5px;
+  display: flex;
+}
+
+.search-bar {
+  margin: 0 1px;
 }
 
 /*# sourceMappingURL=index.a9c166d0.css.map */
