@@ -89,8 +89,6 @@ export const UpdateView = ({ setShowForm }) => {
         if (password) {
             data.Password = password;
           }
-        
-        console.log(data);
 
         fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}`, {
             method: "PUT",
@@ -111,7 +109,6 @@ export const UpdateView = ({ setShowForm }) => {
                 return response.json().then(err => {
                     setErrors(err.errors);
                     console.log(errors);
-                    console.log(data);
                 });
             }
              else {

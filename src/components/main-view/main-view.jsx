@@ -79,12 +79,7 @@ export const MainView = () => {
 
   return (
         <BrowserRouter>
-        <NavigationBar
-            //setSearchResult={setSearchResult}
-            onSearch ={(filter) => {
-                dispatch(setFilter(filter));
-            }}
-        />
+        <NavigationBar />
         <Row className="mt-3 justify-content-md-center">
             <Routes>
                 <Route

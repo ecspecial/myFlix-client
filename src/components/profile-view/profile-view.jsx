@@ -34,7 +34,7 @@ export const ProfileView = () => {
                     <Card.Text>
                         Birthday: {new Date(user.Birthday).toISOString().substring(0, 10)}
                     </Card.Text>
-                    <Button className="mb-2 edit-button" onClick={() => setShowForm(true)}>Edit</Button>
+                    <Button className="mb-2 edit-button" onClick={() => setShowForm(!showForm)}>Edit</Button>
                     {showForm && <UpdateView setShowForm={setShowForm}/>}
                 </Card.Body>
             </Card>
