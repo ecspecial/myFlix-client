@@ -79,13 +79,14 @@ export const MainView = () => {
 
   return (
         <BrowserRouter>
+        <div className="main-container">
+        <Container>
         <NavigationBar />
-        <Row className="mt-3 justify-content-md-center">
             <Routes>
                 <Route
                     path="/signup"
                     element={
-                        <>
+                        <Row className="justify-content-center">
                             {token ? (
                                 <Navigate to="/" />
                             ) : (
@@ -93,13 +94,13 @@ export const MainView = () => {
                                     <SignupView />
                                 </Col>
                             )}
-                        </>
+                        </Row>
                     }
                 />
                 <Route
                     path="/login"
                     element={
-                        <>
+                        <Row className="justify-content-center">
                             {token ? (
                                 <Navigate to="/" />
                             ) : (
@@ -107,7 +108,7 @@ export const MainView = () => {
                                     <LoginView /> 
                                 </Col>
                             )}
-                        </>
+                        </Row>
                     }
                 />
                 <Route
@@ -117,7 +118,7 @@ export const MainView = () => {
                             {!user ? (
                                 <Navigate to="/login" replace />
                             ) : (
-                                <Col md={10 }>
+                                <Col md={12}>
                                     <ProfileView /> 
                                 </Col>
                             )}
@@ -133,9 +134,9 @@ export const MainView = () => {
                             ) : movies.length === 0 ? (
                                 <div>The list is empty!</div>
                             ) : (
-                                <Col md={8}>
+                                <div>
                                     <MovieView />
-                                </Col>
+                                </div>
                             )}
                         </>
                     }
@@ -150,15 +151,11 @@ export const MainView = () => {
                             ) : movies.length === 0 ? (
                                     <div>The list is empty!</div>
                             ) : (
-                                <Row>
+                                <div className="movie-list">
                                     {movies.map((movie) => (
-                                        <Col key={movie.id} xs={8} sm={6} md={4} lg={3} className="mb-3">    
-                                            <MovieCard 
-                                                movie={movie}
-                                            />
-                                        </Col>
+                                        <MovieCard movie={movie} key={movie.id} />
                                     ))}
-                                </Row>
+                                </div>
                             )}
                         </>
                     }
@@ -174,15 +171,11 @@ export const MainView = () => {
                             ) : filteredMovies.length === 0 ? (
                                     <div>Nothing found!</div>
                             ) : (
-                                <Row>
+                                <div className="movie-list">
                                     {filteredMovies.map((movie) => (
-                                        <Col key={movie.id} xs={8} sm={6} md={4} lg={3} className="mb-3">    
-                                            <MovieCard 
-                                                movie={movie}
-                                            />
-                                        </Col>
+                                        <MovieCard movie={movie} key={movie.id} />
                                     ))}
-                                </Row>
+                                </div>
                             )}{ useEffect(() => {
                                 dispatch(setFilter(""));
                             }, [])}
@@ -190,7 +183,8 @@ export const MainView = () => {
                     }
                 />
             </Routes>
-        </Row>
+            </Container>
+        </div>
     </BrowserRouter>
   );
 };

@@ -12005,6 +12005,27 @@ textarea.form-control-lg {
   }
 }
 
+body {
+  color: #fff;
+  background-color: #000;
+}
+
+.navigation-bar {
+  background-color: #202124;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.navigation-bar * {
+  color: #fff;
+}
+
+.navigation-bar a:hover, .navigation-bar a:focus, .navigation-bar a:active {
+  color: gray;
+}
+
 .my-flix {
   color: #4682b4;
 }
@@ -12026,7 +12047,127 @@ textarea.form-control-lg {
 }
 
 .search-bar {
+  border: 1px solid #fff;
+  border-radius: 5px;
   margin: 0 1px;
+}
+
+.form-input, .form-input:focus {
+  color: #fff;
+  background-color: #202124;
+}
+
+.search-btn {
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-left: 3px;
+  padding: 3px;
+}
+
+.search-btn:hover {
+  background-color: gray;
+}
+
+.main-content {
+  display: flex;
+}
+
+.profile-card {
+  color: #fff;
+  background-color: #202124;
+}
+
+.movie-card {
+  background-color: #202124;
+  display: flex;
+}
+
+.movie-card-img {
+  width: 200px;
+  height: 300px;
+  box-sizing: border-box;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  align-self: center;
+  margin: 10px;
+}
+
+.movie-list {
+  grid-gap: 10px;
+  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  margin: 10px auto;
+  display: grid;
+}
+
+.movie-view-description {
+  justify-content: space-between;
+  display: flex;
+}
+
+.movie-view-img {
+  max-width: 300px;
+  max-height: 100%;
+}
+
+@media (max-width: 320px) {
+  .movie-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .movie-view-description {
+    flex-direction: column-reverse;
+    display: flex;
+  }
+}
+
+@media (min-width: 320px) {
+  .movie-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .movie-view-description {
+    flex-direction: column-reverse;
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .movie-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .movie-view-description {
+    flex-direction: row;
+    display: flex;
+  }
+}
+
+@media (min-width: 920px) {
+  .movie-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .movie-view-description {
+    flex-direction: row;
+    display: flex;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movie-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .movie-view-description {
+    flex-direction: row;
+    display: flex;
+  }
 }
 
 /*# sourceMappingURL=index.a9c166d0.css.map */

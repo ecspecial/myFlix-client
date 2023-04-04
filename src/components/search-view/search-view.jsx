@@ -33,7 +33,7 @@ export const SearchView = ({ movies, onSearch, setSearchResult }) => {
                 <input
                     type="text"
                     placeholder="Search..."
-                    className="search search-bar"
+                    className="search search-bar form-input"
                     value={inputValue}
                     onChange={handleChange}
                     onKeyDown={(e) => {
@@ -42,7 +42,7 @@ export const SearchView = ({ movies, onSearch, setSearchResult }) => {
                         }
                     }}
                 />
-                <button type="submit" onClick={() => {
+                <button className="search-btn" type="submit" onClick={() => {
                     handleSearchSubmit()
                 }}>Search</button>
             </div>

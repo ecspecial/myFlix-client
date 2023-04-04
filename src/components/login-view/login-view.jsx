@@ -46,10 +46,11 @@ export const LoginView = () => {
     }
     
     return (
-        <Form onSubmit={handleSubmit}>
+        <Form className="login-form" onSubmit={handleSubmit}>
             <Form.Group controlId="forUsername">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -61,13 +62,14 @@ export const LoginView = () => {
             <Form.Group controlId="forPassword">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button className="mt-3 form-button" variant="primary" type="submit">
                 Submit
             </Button>
         </Form>

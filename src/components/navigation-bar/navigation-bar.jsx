@@ -18,7 +18,7 @@ export const NavigationBar = () => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="navigation-bar" expand="md lg">
       <Container>
         <Navbar.Brand as={Link} to="/">
           Movies App

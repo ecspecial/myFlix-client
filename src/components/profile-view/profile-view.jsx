@@ -20,7 +20,7 @@ export const ProfileView = () => {
 
         <Row className="d-flex flex-column p-2 main-row">
 
-            <Card className="h-100 p-2">
+            <Card className="profile-card p-2">
                     <Card.Title>
                         User information:
                     </Card.Title>
@@ -50,15 +50,11 @@ export const ProfileView = () => {
                             ) : movies.length === 0 ? (
                                     <div>The list is empty!</div>
                             ) : (
-                                <Row>
+                                <div className="movie-list">
                                     {favoriteMovies.map((movie) => (
-                                        <Col key={movie.id} xs={8} sm={6} md={4} lg={3} className="mb-3">    
-                                            <MovieCard
-                                                movie={movie}
-                                            />
-                                        </Col>
+                                        <MovieCard movie={movie} key={movie.id} />
                                     ))}
-                                </Row>
+                                </div>
                             )
                         }
                 </Row>

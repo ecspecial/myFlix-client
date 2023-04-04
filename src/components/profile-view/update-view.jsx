@@ -127,6 +127,7 @@ export const UpdateView = ({ setShowForm }) => {
             <Form.Group controlId="forUsername" className="mb-3">
                 <Form.Label>Username:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -140,6 +141,7 @@ export const UpdateView = ({ setShowForm }) => {
             <Form.Group controlId="forPassword" className="mb-3">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -153,6 +155,7 @@ export const UpdateView = ({ setShowForm }) => {
             <Form.Group controlId="forEmail" className="mb-3">
                 <Form.Label>Email:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -162,6 +165,7 @@ export const UpdateView = ({ setShowForm }) => {
             <Form.Group controlId="forBirthday">
                 <Form.Label>Birthday:</Form.Label>
                 <Form.Control
+                    className="form-input"
                     type="date"
                     value={birthday ? new Date(birthday).toISOString().substring(0, 10) : ''}
                     onChange={(e) => setBirthday(e.target.value)}

@@ -8,20 +8,20 @@ import { Link } from "react-router-dom";
 // Component to open movie card 
 export const MovieCard = ({ movie }) => {
     return (
-        <Card className="h-100">
-            <Row>
-                <Card.Img variant="top" src={movie.ImagePath} className="img-fluid h-100 w-auto movie-card-img"/>
-            </Row>
-            <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
-            </Card.Body>
-            <Card.Footer>
-                <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-                    <Button>Open</Button>
-                </Link>
-            </Card.Footer>
+        <Card className="movie-card">
+            <div className="movie-card-img" style={{ backgroundImage: `url(${movie.ImagePath})` }}>
+              <div style={{ backgroundImage: `url(${movie.ImagePath})` }}></div>
+            </div>
+          <Card.Body>
+            <Card.Title>{movie.Title}</Card.Title>
+          </Card.Body>
+          <Card.Footer>
+            <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+              <Button>Open</Button>
+            </Link>
+          </Card.Footer>
         </Card>
-    );
+      );
 };
 
 // Define props constraints for MovieCard
