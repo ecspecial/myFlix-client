@@ -132,7 +132,7 @@ export const MainView = () => {
                             {!user ? (
                                 <Navigate to="/login" replace />
                             ) : movies.length === 0 ? (
-                                <div>The list is empty!</div>
+                                <div>Loading...</div>
                             ) : (
                                 <div>
                                     <MovieView />
@@ -149,7 +149,7 @@ export const MainView = () => {
                             {!token ? (
                                 <Navigate to="/login" replace />
                             ) : movies.length === 0 ? (
-                                    <div>The list is empty!</div>
+                                    <div>Loading...</div>
                             ) : (
                                 <div className="movie-list">
                                     {movies.map((movie) => (
