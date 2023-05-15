@@ -45,7 +45,7 @@ export const MainView = () => {
         return;
       }
 
-    fetch("https://myflixdb-ecspecial-api.herokuapp.com/movies", {
+    fetch("https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/movies", {
         headers: { Authorization: `Bearer ${token}` }
     })
     .then((response) => response.json())

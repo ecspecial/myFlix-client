@@ -20,7 +20,7 @@ export const LoginView = () => {
             Password: password
         };
         
-        fetch("https://myflixdb-ecspecial-api.herokuapp.com/login", {
+        fetch("https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

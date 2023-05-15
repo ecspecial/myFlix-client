@@ -24,7 +24,7 @@ export const MovieView = () => {
     let favoriteMovies = movies.filter((m) => user.FavoriteMovies.includes(m.id));
 
     const handleAddFavorite = () => {
-        fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+        fetch(`https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/users/${user.Username}/movies/${movieId}`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`
@@ -50,7 +50,7 @@ export const MovieView = () => {
       };
     
       const handleRemoveFavorite = () => {
-        fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+        fetch(`https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/${user.Username}/movies/${movieId}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`

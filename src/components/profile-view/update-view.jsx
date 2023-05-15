@@ -54,7 +54,7 @@ export const UpdateView = ({ setShowForm }) => {
     };
 
     const handleDelete = () => {
-        fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}`, {
+        fetch(`https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/users/${user.Username}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -90,7 +90,7 @@ export const UpdateView = ({ setShowForm }) => {
             data.Password = password;
           }
 
-        fetch(`https://myflixdb-ecspecial-api.herokuapp.com/users/${user.Username}`, {
+        fetch(`https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/users/${user.Username}`, {
             method: "PUT",
             body: JSON.stringify(data),
             headers: {

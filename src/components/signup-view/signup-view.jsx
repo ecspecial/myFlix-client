@@ -20,7 +20,7 @@ export const SignupView = () => {
             Birthday: birthday
         };
         
-        fetch("https://myflixdb-ecspecial-api.herokuapp.com/users", {
+        fetch("https://ga3lvkvqynglokokkhtrad65jy0rsexv.lambda-url.eu-central-1.on.aws/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
